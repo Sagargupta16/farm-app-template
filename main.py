@@ -55,5 +55,5 @@ else:
     @app.get("/")
     async def root():
         return {
-            "message": "FARM App Template - React frontend not built yet. Run 'npm run build' in the client directory first."
+            "message": "FARM App Template - Run 'npm run build' in client/ first."
         }
