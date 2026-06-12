@@ -28,7 +28,7 @@ A clean template for building full-stack applications using the FARM stack:
 
 ```bash
 git clone <your-repo-url>
-cd FARM-APP-TEMPLATE
+cd farm-app-template
 
 # Copy environment config
 cp .env.example .env
@@ -48,6 +48,7 @@ make docker-up
 make install
 # or manually:
 pip install -r requirements.txt
+# or: uv sync --extra dev
 cd client && npm install && cd ..
 
 # Start MongoDB (locally or update config/secrets.yml)
@@ -67,7 +68,7 @@ make dev-frontend
 ## Project Structure
 
 ```
-FARM-APP-TEMPLATE/
+farm-app-template/
 ├── main.py                 # FastAPI application entry point
 ├── requirements.txt        # Python dependencies
 ├── pyproject.toml          # Project metadata and tool config
