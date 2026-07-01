@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from bson import ObjectId
 
@@ -37,7 +37,7 @@ class UserService:
     async def create_user(self, user_data: UserCreate) -> User:
         """Create a new user"""
         user_dict = user_data.model_dump()
-        user_dict["created_at"] = datetime.now(datetime.UTC)
+        user_dict["created_at"] = datetime.now(UTC)
 
         result = await self.collection.insert_one(user_dict)
         user_dict["id"] = str(result.inserted_id)
