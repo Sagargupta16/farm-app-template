@@ -7,13 +7,15 @@ from pathlib import Path
 import pymongo
 import yaml
 from dotenv import load_dotenv
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
 
 load_dotenv()
 logger = logging.getLogger("farm_app")
 
-# Load config from secrets.yml as fallback defaults
+# Load config from secrets.yml (gitignored) or the committed example as fallback defaults
 config_path = Path(__file__).parent / "secrets.yml"
+if not config_path.exists():
+    config_path = Path(__file__).parent / "secrets.example.yml"
 with open(config_path) as stream:
     secrets = yaml.safe_load(stream)
 
@@ -37,7 +39,7 @@ else:
     MONGODB_URL = f"mongodb://{mongodb_host}:{mongodb_port}"
 
 # Async MongoDB client
-client = AsyncIOMotorClient(MONGODB_URL)
+client = AsyncMongoClient(MONGODB_URL)
 
 
 def get_database():
