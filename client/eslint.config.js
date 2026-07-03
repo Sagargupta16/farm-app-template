@@ -21,6 +21,8 @@ export default [
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // fetch-on-mount is intentional in this template
+      'react-hooks/set-state-in-effect': 'warn',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'no-unused-vars': 'warn',
       'no-var': 'error',
