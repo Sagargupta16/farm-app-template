@@ -1,5 +1,8 @@
 # FARM Stack Template
 
+[![CI](https://github.com/Sagargupta16/farm-app-template/actions/workflows/main.yml/badge.svg)](https://github.com/Sagargupta16/farm-app-template/actions/workflows/main.yml)
+[![License: MIT](https://img.shields.io/github/license/Sagargupta16/farm-app-template)](LICENSE)
+
 A clean template for building full-stack applications using the FARM stack:
 - **F**astAPI (Python backend)
 - **R**eact (Frontend, built with Vite)
@@ -9,7 +12,7 @@ A clean template for building full-stack applications using the FARM stack:
 
 - FastAPI backend with automatic API documentation
 - React 19 frontend with Vite for fast builds
-- MongoDB integration with Motor (async driver)
+- MongoDB integration with PyMongo Async (native async driver)
 - Docker and Docker Compose support with healthchecks
 - Example CRUD operations (Users)
 - CI/CD with GitHub Actions (lint, test, Docker build)
@@ -51,7 +54,7 @@ pip install -r requirements.txt
 # or: uv sync --extra dev
 cd client && npm install && cd ..
 
-# Start MongoDB (locally or update config/secrets.yml)
+# Start MongoDB (locally or copy config/secrets.example.yml to config/secrets.yml and edit)
 
 # Run backend (terminal 1)
 make dev
@@ -78,7 +81,7 @@ farm-app-template/
 ├── .env.example            # Environment variables template
 │
 ├── config/
-│   ├── secrets.yml         # MongoDB config (fallback)
+│   ├── secrets.example.yml # MongoDB config template (copy to secrets.yml)
 │   ├── secrets_parser.py   # Config parser with env var support
 │   ├── logging.py          # Logging setup
 │   └── logging.yml         # Logging configuration
@@ -119,7 +122,7 @@ Copy `.env.example` to `.env` and modify as needed:
 cp .env.example .env
 ```
 
-Environment variables take precedence over `config/secrets.yml`.
+Environment variables take precedence over `config/secrets.yml` (copied from `config/secrets.example.yml`).
 
 ### Database Configuration
 
@@ -130,7 +133,7 @@ MONGODB_PORT=27017
 MONGODB_DATABASE=farm_template
 ```
 
-Or edit `config/secrets.yml` as a fallback.
+Or copy `config/secrets.example.yml` to `config/secrets.yml` (gitignored) and edit it as a fallback.
 
 ## API Documentation
 
