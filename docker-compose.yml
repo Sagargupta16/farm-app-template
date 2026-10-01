@@ -1,7 +1,7 @@
 services:
   # MongoDB Database
   mongodb:
-    image: mongo:8
+    image: mongo:9
     container_name: farm_mongodb
     restart: unless-stopped
     ports:
