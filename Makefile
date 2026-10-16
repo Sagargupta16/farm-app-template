@@ -4,11 +4,11 @@ help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 install: ## Install all dependencies (backend + frontend)
-	pip install -r requirements.txt
+	uv sync --locked
 	cd client && npm install
 
 dev: ## Start backend dev server
-	uvicorn main:app --reload
+	uv run uvicorn main:app --reload
 
 dev-frontend: ## Start frontend dev server
 	cd client && npm run dev
@@ -17,16 +17,17 @@ build: ## Build frontend for production
 	cd client && npm run build
 
 test: ## Run backend tests
-	python -m pytest tests/
+	uv run pytest tests/
 
-lint: ## Run ruff linter
-	ruff check .
+lint: ## Run ruff linter and format check
+	uv run ruff check .
+	uv run ruff format --check .
 
 lint-fix: ## Run ruff linter with auto-fix
-	ruff check --fix .
+	uv run ruff check --fix .
 
 format: ## Format Python code with ruff
-	ruff format .
+	uv run ruff format .
 
 clean: ## Remove build artifacts and caches
 	rm -rf __pycache__ .pytest_cache .coverage htmlcov client_build

@@ -19,6 +19,7 @@ def test_root_endpoint():
     response = client.get("/")
     assert response.status_code == 200
 
+
 # Note: User CRUD tests require a running MongoDB instance.
 # In a real scenario, use pytest fixtures with mongomock or a test database.
 # Example:

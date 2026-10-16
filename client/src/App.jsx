@@ -33,7 +33,7 @@ function App() {
       });
       if (response.ok) {
         setNewUser({ name: '', email: '' });
-        fetchUsers();
+        await fetchUsers();
       }
     } catch (error) {
       console.error('Error creating user:', error);
@@ -46,7 +46,7 @@ function App() {
         method: 'DELETE',
       });
       if (response.ok) {
-        fetchUsers();
+        await fetchUsers();
       }
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -54,7 +54,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchUsers().catch((error) => console.error('Error fetching users:', error));
   }, []);
 
   return (

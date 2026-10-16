@@ -1,5 +1,14 @@
-node_modules
+**/node_modules
 .git
 .env
+config/secrets.yml
 dist
+.venv
+venv
+client_build
+**/__pycache__
+.pytest_cache
+.ruff_cache
+.coverage
+htmlcov
 # v1

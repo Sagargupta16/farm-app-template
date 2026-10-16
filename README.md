@@ -13,9 +13,10 @@ A clean template for building full-stack applications using the FARM stack:
 - FastAPI backend with automatic API documentation
 - React 19 frontend with Vite for fast builds
 - MongoDB integration with PyMongo Async (native async driver)
-- Docker and Docker Compose support with healthchecks
+- Python dependencies managed by [uv](https://docs.astral.sh/uv/) with a committed `uv.lock`
+- Multi-stage Docker image that builds the React client and serves it from FastAPI, plus Docker Compose with healthchecks
 - Example CRUD operations (Users)
-- CI/CD with GitHub Actions (lint, test, Docker build)
+- CI/CD with GitHub Actions (ruff, pytest with coverage, ESLint, Vite build, Docker build plus a container smoke test)
 - Ruff for Python linting and formatting
 - Environment variable configuration with python-dotenv
 
@@ -23,8 +24,9 @@ A clean template for building full-stack applications using the FARM stack:
 
 ### Prerequisites
 
-- Python 3.13+
-- Node.js 22+
+- Python 3.13+ (`.python-version` pins 3.14)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
+- Node.js 24 (`.nvmrc`)
 - MongoDB (or use Docker)
 
 ### Method 1: Using Docker (Recommended)
@@ -44,21 +46,27 @@ make docker-up
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/docs
 
+Compose bind-mounts the source tree and runs uvicorn with `--reload`, so `/` serves the frontend only after `make build` on the host. To run the production image on its own (frontend built in, served at `/`):
+
+```bash
+docker build -t farm-app .
+docker run --rm -p 8000:8000 farm-app
+```
+
 ### Method 2: Manual Setup
 
 ```bash
 # Install all dependencies
 make install
 # or manually:
-pip install -r requirements.txt
-# or: uv sync --extra dev
+uv sync --locked
 cd client && npm install && cd ..
 
 # Start MongoDB (locally or copy config/secrets.example.yml to config/secrets.yml and edit)
 
 # Run backend (terminal 1)
 make dev
-# or: uvicorn main:app --reload
+# or: uv run uvicorn main:app --reload
 
 # Run frontend (terminal 2)
 make dev-frontend
@@ -73,11 +81,11 @@ make dev-frontend
 ```
 farm-app-template/
 ├── main.py                 # FastAPI application entry point
-├── requirements.txt        # Python dependencies
-├── pyproject.toml          # Project metadata and tool config
+├── pyproject.toml          # Dependencies, dev group and tool config
+├── uv.lock                 # Locked Python dependency versions and hashes
 ├── Makefile                # Common dev commands
 ├── docker-compose.yml      # Docker services
-├── Dockerfile              # Backend container
+├── Dockerfile              # Multi-stage image: client build, uv deps, runtime
 ├── .env.example            # Environment variables template
 │
 ├── config/
@@ -166,7 +174,7 @@ docker-rebuild       Rebuild and start all services
 docker-up            Start all services with Docker Compose
 format               Format Python code with ruff
 install              Install all dependencies (backend + frontend)
-lint                 Run ruff linter
+lint                 Run ruff linter and format check
 lint-fix             Run ruff linter with auto-fix
 test                 Run backend tests
 ```
@@ -178,6 +186,8 @@ test                 Run backend tests
 3. Add API routes in `routes/` (e.g., `product_routes.py`)
 4. Include the router in `main.py`
 5. Update the frontend in `client/src/`
+
+A new top-level Python package (outside `config/`, `models/`, `routes/`, `services/`, `utils/`) also needs a `COPY` line in the runtime stage of the `Dockerfile`.
 
 ## License
 

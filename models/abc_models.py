@@ -20,4 +20,5 @@ class User(UserBase):
     id: str
     created_at: datetime
 
+
 # Delete this file if you don't want to use it. Use *_model.py pattern to create new model files.

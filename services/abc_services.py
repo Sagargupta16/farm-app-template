@@ -52,4 +52,5 @@ class UserService:
         except Exception:
             return False
 
+
 # Delete this file if you don't want to use it. Use *_service.py pattern to create new service files.
