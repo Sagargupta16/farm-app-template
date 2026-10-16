@@ -54,6 +54,4 @@ else:
 
     @app.get("/")
     async def root():
-        return {
-            "message": "FARM App Template - Run 'npm run build' in client/ first."
-        }
+        return {"message": "FARM App Template - Run 'npm run build' in client/ first."}

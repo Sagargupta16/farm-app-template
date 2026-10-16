@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.0] - 2026-10-16
+
+- Move Python tooling to uv: CI, the Dockerfile and `make` targets install with `uv sync --locked`; `requirements.txt` is removed and `uv.lock` is the single source of locked versions
+- Dev tools move from the `dev` extra to a `dev` dependency group; drop the unused setuptools `[build-system]` that made `uv sync` fail
+- Multi-stage Dockerfile: builds the React client and serves it at `/`, installs locked wheels only with uv (`--no-build`) into `/opt/venv`; the Python stages move from Alpine to `python:3.14-slim` because pymongo has no musllinux wheel
+- CI: top-level `contents: read` permissions (`build_and_publish.yml` drops its unused `contents: write` and `packages: write`), `ruff format --check`, new `client` job (ESLint + Vite build), Docker build waits on tests and client, then runs the image until its healthcheck reports healthy and checks `/health` and the SPA at `/`
+- ESLint extends `js.configs.recommended`; `fetchUsers()` calls in `App.jsx` are awaited or caught
+- Delete button colors reach WCAG AA contrast (4.6:1, hover 5.0:1); the 404 responses are documented in the OpenAPI schema
+
 ## [2.0.0] - 2026-03-14
 
 - Modernize to 2026 standards: Python 3.13, Node 22

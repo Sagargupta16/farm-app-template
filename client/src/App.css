@@ -74,7 +74,7 @@
 }
 
 .user-card button {
-  background-color: #ff6b6b;
+  background-color: #d14148;
   color: white;
   padding: 5px 10px;
   border: none;
@@ -84,5 +84,5 @@
 }
 
 .user-card button:hover {
-  background-color: #ff5252;
+  background-color: #d62735;
 }

@@ -1,6 +1,6 @@
 [project]
 name = "farm-app-template"
-version = "1.0.0"
+version = "2.1.0"
 description = "A FARM (FastAPI, React, MongoDB) stack template"
 requires-python = ">=3.13"
 license = "MIT"
@@ -16,7 +16,8 @@ dependencies = [
     "python-dotenv>=1.0",
 ]
 
-[project.optional-dependencies]
+# Installed by `uv sync`, left out by `uv sync --no-dev` (the Docker image).
+[dependency-groups]
 dev = [
     "pytest>=8.0",
     "httpx>=0.28",
@@ -24,9 +25,8 @@ dev = [
     "coverage>=7.0",
 ]
 
-[build-system]
-requires = ["setuptools>=75.0"]
-build-backend = "setuptools.build_meta"
+# No [build-system]: this is an app run from source (`uvicorn main:app`), not an
+# installable package, so uv installs only the dependencies.
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
