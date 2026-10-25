@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.1] - 2026-10-25
+
+- Client: vite 8.1.6 -> 8.3.5 for the launch-editor advisories (existence-check bypass, `%` escaping and CLI flag handling on Windows)
+
 ## [2.1.0] - 2026-10-16
 
 - Move Python tooling to uv: CI, the Dockerfile and `make` targets install with `uv sync --locked` (CI and the Dockerfile also pass `--no-build`, and every CI `uv run` passes `--locked --no-build`); `requirements.txt` is removed and `uv.lock` is the single source of locked versions
