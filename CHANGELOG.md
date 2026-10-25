@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.2] - 2026-10-25
+
+- certifi 2026.7.22 -> 2026.10.23 in `uv.lock`, for the emSign root CAs with compromised intermediate CA keys advisory
+
 ## [2.1.1] - 2026-10-25
 
 - Client: vite 8.1.6 -> 8.3.5 for the launch-editor advisories (existence-check bypass, `%` escaping and CLI flag handling on Windows)
