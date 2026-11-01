@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.3] - 2026-11-01
+
+- Removed `sonar-project.properties`. No workflow runs a Sonar scanner and SonarCloud is being disconnected from these repos, so new repos made from this template no longer carry a dead Sonar config
+
 ## [2.1.2] - 2026-10-25
 
 - certifi 2026.7.22 -> 2026.10.23 in `uv.lock`, for the emSign root CAs with compromised intermediate CA keys advisory
