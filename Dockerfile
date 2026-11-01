@@ -10,7 +10,7 @@ RUN npm run build
 # Stage 2: install the locked Python dependencies (no dev group) into /opt/venv,
 # wheels only. The Python stages use Debian slim, not Alpine: pymongo publishes
 # no musllinux wheel, so on Alpine it would have to be built from source.
-FROM python:3.15-slim AS builder
+FROM python:3.14-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:0.13.6 /uv /bin/uv
 ENV UV_COMPILE_BYTECODE=1 \
     UV_PYTHON_DOWNLOADS=0 \
@@ -21,7 +21,7 @@ RUN uv sync --locked --no-dev --no-install-project --no-build
 
 # Stage 3: runtime. The venv sits outside /app so the docker-compose bind mount
 # of the source tree does not hide it.
-FROM python:3.15-slim
+FROM python:3.14-slim
 RUN useradd --create-home appuser
 WORKDIR /app
 
