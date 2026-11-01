@@ -1,6 +1,6 @@
 # Stage 1: build the React client. vite.config.js writes to ../client_build,
 # so from WORKDIR /client the bundle lands in /client_build.
-FROM node:24-alpine AS client
+FROM node:26-alpine AS client
 WORKDIR /client
 COPY client/package.json client/package-lock.json ./
 RUN npm ci --ignore-scripts
