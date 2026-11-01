@@ -11,7 +11,7 @@ RUN npm run build
 # wheels only. The Python stages use Debian slim, not Alpine: pymongo publishes
 # no musllinux wheel, so on Alpine it would have to be built from source.
 FROM python:3.14-slim AS builder
-COPY --from=ghcr.io/astral-sh/uv:0.13.1 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.13.6 /uv /bin/uv
 ENV UV_COMPILE_BYTECODE=1 \
     UV_PYTHON_DOWNLOADS=0 \
     UV_PROJECT_ENVIRONMENT=/opt/venv
